@@ -8,11 +8,12 @@
 package routers
 
 import (
-	"cloud/controllers"
-
 	"github.com/astaxie/beego"
+	"github.com/yunfeiyang1916/cloud-go/controllers"
 )
 
 func init() {
 	beego.Router("/login", &controllers.LoginController{}, "*:Index")
+	beego.Router("/login/login", &controllers.LoginController{}, "*:Login")
+	beego.Router("/home", &controllers.HomeController{}, "*:Index")
 }

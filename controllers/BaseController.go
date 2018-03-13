@@ -8,12 +8,11 @@
 package controllers
 
 import (
-	"cloud/models"
 	"fmt"
-
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/yunfeiyang1916/cloud-go/models"
 )
 
 //控制器基类
@@ -57,4 +56,10 @@ func (this *BaseController) Prepare() {
 func (this *BaseController) redirect(url string) {
 	this.Redirect(url, 302)
 	this.StopRun()
+}
+
+//获取客户端ip
+func (this *BaseController) getClientIP() string {
+	ip := strings.Split(this.Ctx.Request.RemoteAddr, ":")
+	return ip[0]
 }

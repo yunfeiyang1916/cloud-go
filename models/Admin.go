@@ -7,6 +7,11 @@
 ***********************************************/
 package models
 
+import "github.com/astaxie/beego/orm"
+
+//用户表名
+const TableNameAdmin string = "pp_uc_admin"
+
 //用户
 type Admin struct {
 	//id
@@ -41,7 +46,27 @@ type Admin struct {
 	UpdateTime int64
 }
 
+//获取表名，注册模型的时候会自动调用
+func (this *Admin) TableName() string {
+	return TableNameAdmin
+}
+
 //根据登陆名称获取用户信息
-func getAdminByLoginName(loginName string) (*Admin, error) {
-	return nil, nil
+func GetAdminByLoginName(loginName string) (*Admin, error) {
+	entity := new(Admin)
+	orm := orm.NewOrm()
+	err := orm.QueryTable(TableNameAdmin).Filter("login_name", loginName).One(entity)
+	if err != nil {
+		return nil, err
+	}
+	return entity, nil
+}
+
+//更新
+func (this *Admin) Update(fields ...string) error {
+	_, err := orm.NewOrm().Update(this, fields...)
+	if err != nil {
+		return err
+	}
+	return nil
 }

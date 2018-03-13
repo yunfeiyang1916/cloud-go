@@ -8,11 +8,12 @@
 package main
 
 import (
-	_ "cloud/routers"
-
 	"github.com/astaxie/beego"
+	"github.com/yunfeiyang1916/cloud-go/models"
+	_ "github.com/yunfeiyang1916/cloud-go/routers"
 )
 
 func main() {
+	models.Init()
 	beego.Run()
 }
